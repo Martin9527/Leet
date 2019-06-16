@@ -44,6 +44,44 @@ class Solution(object):
 					index_pair[half_sum] = [(i,j)]
 				
 		return combos.keys()
+	#general k sum problem solution
+	def kSum(self,nums,target,k,currentResult,finalResults):
+		'''
+			currentResult: it reprensent middle result
+			finalResults: it is the final results
+		'''
+		ls = len(nums)
+		if ls < k:
+			return []
+		#it is two Sum problem
+		if k == 2:
+			begin, end = 0, len(nums) - 1
+			while begin < end:
+				curr = nums[begin] + nums[end]
+
+				if curr == target:
+					results.append(result + [nums[i], nums[j]])
+					begin +=1
+					end -= 1
+					while begin < end and nums[begin] == nums[begin-1]:
+						begin +=1
+					while begin < end and nums[end] == nums[end+1]:
+						end -=1
+						pass
+				elif curr < target:
+					begin += 1
+				else:
+					end -= 1
+		#reduce to two Sum problem
+		else:
+			for i in range(ls-k+1):
+				if i > 0 and nums[i] == nums[i-1]:
+					continue
+				n = nums[i]
+				self.kSum(nums[i+1:],target-n,k-1,currentResult+[n],finalResults)
+				
+
+				
 
 		
 
@@ -57,4 +95,6 @@ if __name__ == '__main__':
 	182,198,199,206,207,217,218,226,267,274,278,278,309,322,323,
 	327,350,361,372,376,387,391,434,449,457,465,488]
 	target = 1979
-	print 'AA: ',s.fourSum(nums,target)
+	result = []
+	s.kSum(nums,target,4,[],result)
+	print result
