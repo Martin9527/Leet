@@ -68,6 +68,24 @@ class Solution(object):
 			del temp
 		return head
 
+	def removeNthFromEnd3(head, n):
+
+		dummy = ListNode(0);
+		dummy.next = head;
+		first = dummy;
+		second = dummy;
+		#Advances first pointer so that the gap between first and second is n nodes apart
+		for (i = 1; i <= n + 1; i++) 
+			first = first.next
+		#Move first to the end, maintaining the gap
+		while (first != None) {
+			first = first.next;
+			second = second.next;
+		}
+		second.next = second.next.next;
+		return dummy.next;
+}
+
 
 
 
