@@ -1,5 +1,5 @@
 class Solution(object):
-    def findMedianSortedArrays(self, nums1, nums2):
+	def findMedianSortedArrays(self, nums1, nums2):
 		"""
 		:type nums1: List[int]
 		:type nums2: List[int]
@@ -39,9 +39,29 @@ class Solution(object):
 	
 		return median
 
+	def findKthInTwoSortedArray(self,nums1,nums2,k):
+		l1 = len(nums1)
+		l2 = len(nums2)
+		if l1 + l2 < k:
+			return 0
+		if l1 == 0:
+			return nums2[k-1]
+		if k == 1:
+			return nums1[0] if nums1[0] < nums2[0] else nums2[0]
+		if l1 > l2:
+			return self.findKthInTwoSortedArray(nums2,nums1,k)
+		i = k/2 if l1 > k/2 else l1
+		j = k/2 if l2 > k/2 else l2
+		if nums1[i-1] < nums2[j-1]:
+			return self.findKthInTwoSortedArray(nums1[i::],nums2,k-i)
+		elif nums1[i-1] > nums2[j-1]:
+			return self.findKthInTwoSortedArray(nums1,nums2[j::],k-j)
+		else:
+			return nums2[j-1]
+
 
 	
 
 if __name__ == '__main__':
 	s = Solution()
-	s.findMedianSortedArrays([],[1])
+	print s.findKthInTwoSortedArray([1,2,3],[5,6],6)

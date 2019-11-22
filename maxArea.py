@@ -1,5 +1,5 @@
 class Solution(object):
-	def maxArea(self, height):
+	def maxArea3(self, height):
 		"""
 		:type height: List[int]
 		:rtype: int
@@ -14,7 +14,6 @@ class Solution(object):
 		return maxArea
 
 	def maxArea2(self,height):
-
 		if not height or len(height) < 2:
 			return 0
 		maxArea = 0
@@ -29,11 +28,13 @@ class Solution(object):
 			else:
 				j -= 1
 		return maxArea
+
 		
 
 if __name__ == '__main__':
 	so = Solution()
-	maxArea = so.maxArea([1,8,6,2,5,4,8,3,7])
+	maxArea = so.maxArea3([1,8,6,2,5,4,8,3,7])
+	print 'AAA: ',maxArea
 	
 	
 

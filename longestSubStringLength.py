@@ -1,5 +1,5 @@
 class Solution(object):
-	def lengthOfLongestSubstring(self, s):
+	def lengthOfLongestSubstring1(self, s):
 		"""
 		:type s: str
 		:rtype: int
@@ -32,8 +32,37 @@ class Solution(object):
 	
 		return max_length
 
+	def lengthOfLongestSubstring(self, s):
+		"""
+		:type s: str
+		:rtype: int
+		"""
+		if not s:
+			return 0
+		n = len(s)
+		ans = set()
+		left = 0
+		max_length = 0
+		cur_length = 0
+		for i in range(n):
+			cur_length += 1
+
+			while s[i] in ans:
+				ans.remove(s[left])
+				left += 1
+				cur_length -= 1
+				
+			if cur_length > max_length:
+				max_length = cur_length
+			ans.add(s[i])
+
+				
+		print "ans",ans
+		return max_length
+
+
         
 if __name__ == '__main__':
 	s = Solution()
-	print 'length: ',s.lengthOfLongestSubstring("pwwkew")
+	print 'length: ',s.lengthOfLongestSubstring("abcabababa")
 	

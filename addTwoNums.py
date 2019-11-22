@@ -1,3 +1,4 @@
+#--utf-8 -#
 # Definition for singly-linked list.
 
 class ListNode(object):
@@ -6,7 +7,7 @@ class ListNode(object):
 		self.next = None
 
 class Solution(object):
-	def addTwoNumbers(self, l1, l2):
+	def addTwoNumbers1(self, l1, l2):
 		"""
 		:type l1: ListNode
 		:type l2: ListNode
@@ -45,6 +46,73 @@ class Solution(object):
 			
 		return firstNode
 
+	def addTwoNumbers(self,l1,l2):
+		p = l1
+		q = l2
+		firstNode = ListNode(0)
+		curNode = firstNode
+		carry = 0
+		while p or q:
+			pVal = p.val if p else 0
+			qVal = q.val if q else 0
+			sumVal = pVal + qVal + carry
+			carry = sumVal / 10
+			dump = ListNode(sumVal % 10)
+			curNode.next = dump
+			curNode = dump
+			if p:
+				p = p.next
+			if q:
+				q = q.next
+		if carry:
+			curNode.next = ListNode(carry)
+		return firstNode.next
+
+	def addTwoNumbers2(self,l1,l2):
+		# list is Big order 
+		s1 = []
+		s2 = []
+		p = l1
+		q = l2
+
+		while p :
+			s1.append(p.val)
+			p = p.next
+		while q:
+			s2.append(q.val)
+			q = q.next
+
+		carry = 0
+		curNode = None
+
+		while s1 and s2:
+			val1 = s1.pop()
+			val2 = s2.pop()
+			sumVal = carry + val1 + val2
+			carry = sumVal / 10
+			dumpNode = ListNode(sumVal % 10)
+			dumpNode.next = curNode
+			curNode = dumpNode
+		while s1:
+			val1 = s1.pop()
+			sumVal = carry + val1
+			carry = sumVal / 10
+			dumpNode = ListNode(sumVal % 10)
+			dumpNode.next = curNode
+			curNode = dumpNode
+		while s2:
+			val2 = s2.pop()
+			sumVal = carry + val2
+			carry = sumVal / 10
+			dumpNode = ListNode(sumVal % 10)
+			dumpNode.next = curNode
+			curNode = dumpNode
+		if carry:
+			dumpNode = ListNode(carry)
+			dumpNode.next = curNode
+			curNode = dumpNode
+		return curNode
+
 	def createListNode(self,nums):
 		firstNode = lastNode = None
 		for i, ch in enumerate(nums):
@@ -64,9 +132,10 @@ class Solution(object):
 
 if __name__ == '__main__':
 	s = Solution()
-	l1 = s.createListNode([2,4,3])
-	l2 = s.createListNode([5,6,4])
-	s.addTwoNumbers(l1,l2)
+	l1 = s.createListNode([6,4,3])
+	l2 = s.createListNode([5,7,2])
+	r = s.addTwoNumbers2(l1,l2)
+	print 'rrr: ',r.val,r.next.val,r.next.next.val,r.next.next.next.val
 
 
 
