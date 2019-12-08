@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class Solution(object):
-	def longestPalindrome(self, s):
+	def longestPalindrome1(self, s):
 		"""
 		:type s: str
 		:rtype: str
@@ -33,8 +33,25 @@ class Solution(object):
 
 		return subString
 
+	def longestPalindrome(self,s):
+		size = len(s)
+		if size <= 1:
+			return s
+		dp = [[False for _ in range(size)] for _ in range(size)]
+		res = s[0]
+		maxLength = 1
+		for r in xrange(1,size):
+			for l in xrange(r):
+				if s[l] == s[r] and (len(s[l:r+1]) <=3 or dp[l+1][r-1]):
+					dp[l][r] = True
+					if len(s[l:r+1]) > maxLength:
+						res = s[l:r+1]
+						maxLength = len(res)
+		return res
+
+
 
 
 if __name__ == '__main__':
 	s = Solution()
-	s.longestPalindrome("aacdefcaa")
+	print 'sss: ',s.longestPalindrome("ababbbc")

@@ -45,6 +45,8 @@ class Solution(object):
 				# append the current letter to the combination
 				# and proceed to the next digits
 				backtrack(combination + letter, next_digits[1:])
+		if digits:
+			backtrack('',digits)
 
 if __name__ == '__main__':
 	s = Solution()

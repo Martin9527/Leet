@@ -1,3 +1,5 @@
+INT_MIN = -0x80000000
+INT_MAX = 0x7fffffff
 class Solution(object):
 	def myAtoi(self, targetStr):
 		"""
@@ -6,8 +8,7 @@ class Solution(object):
 		"""
 		numbers = ['0','1','2','3','4','5','6','7','8','9']
 		signs = ['+','-']
-		INT_MIN = -0x80000000
-		INT_MAX = 0x7fffffff
+
 		if targetStr is None:
 			return 0
 		i = 0
@@ -43,7 +44,10 @@ class Solution(object):
 			return INT_MIN
 		else:
 			return nn
-		
+	
+	def myAtoi2(self,targetStr):
+		import re
+		return max(min(int(*re.findall('^[\+\-]?\d+',targetStr.strip())),INT_MAX),INT_MIN)
 		
 		
 
@@ -51,7 +55,7 @@ class Solution(object):
 
 if __name__ == '__main__':
 	s = Solution()
-	nn = s.myAtoi("   +0 123")
+	nn = s.myAtoi2("   +0 123")
 	print 'nn: ',nn
 	
 	
